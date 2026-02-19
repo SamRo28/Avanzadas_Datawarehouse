@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-from . import schemas
+import schemas
 
 # Query 1
 def get_blue_ocean(db: Session):

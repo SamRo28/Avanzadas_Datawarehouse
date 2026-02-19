@@ -16,6 +16,7 @@ app.add_middleware(
 def read_root():
     return {"message": "Welcome to the Steam Datawarehouse API"}
 
-from .routers import router
+from routers import router
 app.include_router(router)
 
+# trigger reload

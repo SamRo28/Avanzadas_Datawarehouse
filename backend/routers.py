@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import List
-from . import services, schemas, database
+import services, schemas, database
 
 router = APIRouter(
     prefix="/statistics",
