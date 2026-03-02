@@ -8,10 +8,6 @@ router = APIRouter(
     tags=["statistics"]
 )
 
-@router.get("/blue-ocean", response_model=List[schemas.BlueOceanItem])
-def read_blue_ocean(db: Session = Depends(database.get_db)):
-    return services.get_blue_ocean(db)
-
 @router.get("/battle-royale-lifecycle", response_model=List[schemas.BattleRoyaleLifecycleItem])
 def read_battle_royale_lifecycle(db: Session = Depends(database.get_db)):
     return services.get_battle_royale_lifecycle(db)
@@ -67,3 +63,7 @@ def read_specialization_generalist(db: Session = Depends(database.get_db)):
 @router.get("/decade-evolution", response_model=List[schemas.DecadeEvolutionItem])
 def read_decade_evolution(db: Session = Depends(database.get_db)):
     return services.get_decade_evolution(db)
+
+@router.get("/release-seasonality", response_model=List[schemas.ReleaseSeasonalityItem])
+def read_release_seasonality(db: Session = Depends(database.get_db)):
+    return services.get_release_seasonality(db)

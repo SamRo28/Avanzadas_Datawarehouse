@@ -79,7 +79,7 @@ export class DecadeEvolutionChartComponent implements OnInit {
                 });
 
                 const mainstreamData = years.map(year => {
-                    const item = data.find(d => d.Anio_Lanzamiento === year && d.Categoria_Mercado === 'Mainstream');
+                    const item = data.find(d => d.Anio_Lanzamiento === year && d.Categoria_Mercado === 'Mainstream / Otros');
                     return item ? item.Precio_Promedio : null;
                 });
 
@@ -87,14 +87,14 @@ export class DecadeEvolutionChartComponent implements OnInit {
                     labels: years.map(y => y.toString()),
                     datasets: [
                         {
-                            label: 'Indie Price',
+                            label: 'Precio Indie',
                             data: indieData as number[],
                             borderColor: '#3b82f6',
                             backgroundColor: 'rgba(59, 130, 246, 0.5)',
                             tension: 0.3
                         },
                         {
-                            label: 'Mainstream Price',
+                            label: 'Precio Mainstream',
                             data: mainstreamData as number[],
                             borderColor: '#ef4444',
                             backgroundColor: 'rgba(239, 68, 68, 0.5)',

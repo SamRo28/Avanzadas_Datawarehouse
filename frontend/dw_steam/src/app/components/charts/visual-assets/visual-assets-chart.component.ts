@@ -30,16 +30,16 @@ import { CommonModule } from '@angular/common';
                 </div>
                 <!-- Tooltip -->
                  <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-900 text-white text-xs p-2 rounded whitespace-nowrap z-10 border border-gray-700 pointer-events-none">
-                  Img: {{image}}<br>Vid: {{video}}<br>Users: {{getValue(image, video) | number}}
+                  Img: {{image}}<br>Vid: {{video}}<br>Usuarios: {{getValue(image, video) | number}}
                 </div>
               </div>
             }
           }
         </div>
         <div class="mt-2 flex items-center justify-center gap-2 text-xs text-gray-400">
-          <span>Low Impact</span>
+          <span>Bajo Impacto</span>
           <div class="w-20 h-2 bg-gradient-to-r from-blue-900 to-blue-400 rounded"></div>
-          <span>High Impact</span>
+          <span>Alto Impacto</span>
         </div>
       }
     </div>

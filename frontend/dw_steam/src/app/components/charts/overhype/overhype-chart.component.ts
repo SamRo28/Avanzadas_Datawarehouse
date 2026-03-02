@@ -12,11 +12,11 @@ import { CommonModule } from '@angular/common';
       <table class="w-full text-sm text-left text-gray-400">
         <thead class="text-xs text-gray-300 uppercase bg-gray-800">
           <tr>
-            <th class="px-6 py-3">Game</th>
-            <th class="px-6 py-3">Owners</th>
-            <th class="px-6 py-3 text-center">Positive</th>
-            <th class="px-6 py-3 text-center">Negative</th>
-            <th class="px-6 py-3 text-right">Approval</th>
+            <th class="px-6 py-3">Juego</th>
+            <th class="px-6 py-3">Propietarios</th>
+            <th class="px-6 py-3 text-center">Positivas</th>
+            <th class="px-6 py-3 text-center">Negativas</th>
+            <th class="px-6 py-3 text-right">Aprobación</th>
           </tr>
         </thead>
         <tbody>
@@ -31,9 +31,9 @@ import { CommonModule } from '@angular/common';
                 <td class="px-6 py-4 text-center text-red-400">{{ game.negative_ratings | number }}</td>
                 <td class="px-6 py-4 text-right">
                   <div class="w-full bg-gray-700 rounded-full h-2.5 mb-1">
-                    <div class="bg-red-600 h-2.5 rounded-full" [style.width.%]="game.tasa_aprobacion * 100"></div>
+                    <div class="bg-red-600 h-2.5 rounded-full" [style.width.%]="game.tasa_aprobacion"></div>
                   </div>
-                  <span class="text-xs font-bold">{{ game.tasa_aprobacion | percent:'1.1-1' }}</span>
+                  <span class="text-xs font-bold">{{ game.tasa_aprobacion / 100 | percent:'1.1-1' }}</span>
                 </td>
               </tr>
             }

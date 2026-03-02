@@ -71,7 +71,7 @@ export class CostQualityChartComponent implements OnInit {
                             borderColor: 'transparent'
                         },
                         {
-                            label: 'Votos Promedio (Scaled / 1000)',
+                            label: 'Votos Promedio (Escalado / 1000)',
                             data: data.map(d => d.promedio_votos_por_juego / 1000), // Scaling down to fit
                             backgroundColor: 'rgba(168, 85, 247, 0.7)',
                             borderColor: 'transparent'

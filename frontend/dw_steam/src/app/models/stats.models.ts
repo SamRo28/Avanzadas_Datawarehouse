@@ -1,10 +1,3 @@
-export interface BlueOceanStat {
-    combinacion_generos: string;
-    cantidad_competencia: number;
-    rating_promedio: number;
-    precio_promedio: number;
-}
-
 export interface BattleRoyaleLifecycle {
     anio: number;
     lanzamientos: number;
@@ -104,4 +97,12 @@ export interface DecadeEvolutionStat {
     Precio_Promedio: number;
     Playtime_Promedio_Min: number;
     Score_Aprobacion_Global: number;
+}
+
+export interface ReleaseSeasonalityStat {
+    mes: number;
+    nombre_mes: string;
+    lanzamientos: number;
+    rating_promedio: number;
+    precio_promedio: number;
 }

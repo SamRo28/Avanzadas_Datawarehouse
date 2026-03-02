@@ -2,33 +2,6 @@ from sqlalchemy.orm import Session
 from sqlalchemy import text
 import schemas
 
-# Query 1
-def get_blue_ocean(db: Session):
-    query = text("""
-        SELECT 
-            genres AS combinacion_generos,
-            COUNT(*) AS cantidad_competencia,
-            ROUND(AVG(positive_ratings / (positive_ratings + negative_ratings)) * 100, 2) AS rating_promedio,
-            ROUND(AVG(price), 2) AS precio_promedio
-        FROM steam
-        WHERE 
-            release_date >= '2023-01-01'
-            AND (positive_ratings + negative_ratings) > 50
-        GROUP BY genres
-        HAVING 
-            cantidad_competencia < 20
-            AND rating_promedio > 85
-        ORDER BY rating_promedio DESC
-        LIMIT 10;
-    """)
-    result = db.execute(query).fetchall()
-    return [schemas.BlueOceanItem(
-        combinacion_generos=row[0],
-        cantidad_competencia=row[1],
-        rating_promedio=row[2],
-        precio_promedio=row[3]
-    ) for row in result]
-
 # Query 2
 def get_battle_royale_lifecycle(db: Session):
     query = text("""
@@ -68,7 +41,7 @@ def get_indie_success(db: Session):
         JOIN steamspy_tag_data t ON s.appid = t.appid
         WHERE 
             t.indie > 0
-            AND s.owners NOT IN ('0 .. 20,000', '20,000 .. 50,000', '50,000 .. 100,000');
+            AND s.owners NOT IN ('0-20000', '20000-50000', '50000-100000');
     """)
     result = db.execute(query).fetchall()
     return [schemas.IndieSuccessItem(
@@ -94,7 +67,7 @@ def get_price_elasticity(db: Session):
             AND price > 0
         GROUP BY owners
         ORDER BY 
-            CAST(REPLACE(SUBSTRING_INDEX(owners, ' ..', 1), ',', '') AS UNSIGNED) DESC;
+            CAST(SUBSTRING_INDEX(owners, '-', 1) AS UNSIGNED) DESC;
     """)
     result = db.execute(query).fetchall()
     return [schemas.PriceElasticityItem(
@@ -168,7 +141,7 @@ def get_visual_assets_impact(db: Session):
                 ELSE 'Visualmente Pobre (<5 Screens)' 
             END AS estrategia_imagen,
             COUNT(*) AS cantidad_juegos,
-            ROUND(AVG(CAST(REPLACE(SUBSTRING_INDEX(s.owners, ' ..', 1), ',', '') AS UNSIGNED))) AS usuarios_promedio_estimados
+            ROUND(AVG(CAST(SUBSTRING_INDEX(s.owners, '-', 1) AS UNSIGNED))) AS usuarios_promedio_estimados
         FROM steam s
         JOIN steam_media_data m ON s.appid = m.steam_appid
         GROUP BY estrategia_video, estrategia_imagen
@@ -193,7 +166,7 @@ def get_copywriting_seo(db: Session):
                 ELSE 'Sin Descripción'
             END AS longitud_copywriting,
             COUNT(*) AS total_publicaciones,
-            ROUND(AVG(CAST(REPLACE(SUBSTRING_INDEX(s.owners, ' ..', 1), ',', '') AS UNSIGNED))) AS impacto_en_ventas_avg
+            ROUND(AVG(CAST(SUBSTRING_INDEX(s.owners, '-', 1) AS UNSIGNED))) AS impacto_en_ventas_avg
         FROM steam s
         JOIN steam_description_data d ON s.appid = d.steam_appid
         WHERE d.detailed_description IS NOT NULL
@@ -214,7 +187,7 @@ def get_multi_platform_effect(db: Session):
             platforms AS soporte_plataformas,
             COUNT(*) AS lanzamientos,
             ROUND(AVG(price), 2) AS precio_promedio,
-            ROUND(AVG(CAST(REPLACE(SUBSTRING_INDEX(owners, ' ..', 1), ',', '') AS UNSIGNED))) AS base_usuarios_promedio
+            ROUND(AVG(CAST(SUBSTRING_INDEX(owners, '-', 1) AS UNSIGNED))) AS base_usuarios_promedio
         FROM steam
         GROUP BY platforms
         HAVING lanzamientos > 50
@@ -239,11 +212,10 @@ def get_overhype_analysis(db: Session):
             ROUND((positive_ratings / (positive_ratings + negative_ratings)) * 100, 1) AS tasa_aprobacion
         FROM steam
         WHERE 
-            owners IN ('200,000 .. 500,000', '500,000 .. 1,000,000', '1,000,000 .. 2,000,000', '2,000,000 .. 5,000,000')
+            owners IN ('200000-500000', '500000-1000000', '1000000-2000000', '2000000-5000000', '5000000-10000000', '10000000-20000000')
             AND (positive_ratings + negative_ratings) > 500
-        HAVING tasa_aprobacion < 50
-        ORDER BY owners DESC, tasa_aprobacion ASC
-        LIMIT 15;
+        ORDER BY tasa_aprobacion ASC, owners DESC
+        LIMIT 10;
     """)
     result = db.execute(query).fetchall()
     return [schemas.OverhypeItem(
@@ -264,7 +236,7 @@ def get_accessibility_hardware(db: Session):
                 ELSE 'Estándar / Otros' 
             END AS tipo_requisitos_estimado,
             COUNT(*) AS cantidad_lanzamientos,
-            ROUND(AVG(CAST(REPLACE(SUBSTRING_INDEX(s.owners, ' ..', 1), ',', '') AS UNSIGNED))) AS usuarios_promedio
+            ROUND(AVG(CAST(SUBSTRING_INDEX(s.owners, '-', 1) AS UNSIGNED))) AS usuarios_promedio
         FROM steam s
         JOIN steamspy_tag_data t ON s.appid = t.appid
         GROUP BY tipo_requisitos_estimado
@@ -403,4 +375,27 @@ def get_decade_evolution(db: Session):
         Precio_Promedio=row[4],
         Playtime_Promedio_Min=row[5],
         Score_Aprobacion_Global=row[6] or 0.0
+    ) for row in result]
+
+# Query 16
+def get_release_seasonality(db: Session):
+    query = text("""
+        SELECT 
+            MONTH(release_date) AS mes,
+            MONTHNAME(release_date) AS nombre_mes,
+            COUNT(*) AS lanzamientos,
+            ROUND(AVG(positive_ratings / NULLIF(positive_ratings + negative_ratings, 0)) * 100, 2) AS rating_promedio,
+            ROUND(AVG(price), 2) AS precio_promedio
+        FROM steam
+        WHERE release_date IS NOT NULL AND release_date >= '2010-01-01' AND (positive_ratings + negative_ratings) > 50
+        GROUP BY mes, nombre_mes
+        ORDER BY mes ASC;
+    """)
+    result = db.execute(query).fetchall()
+    return [schemas.ReleaseSeasonalityItem(
+        mes=row[0],
+        nombre_mes=row[1],
+        lanzamientos=row[2],
+        rating_promedio=row[3] or 0.0,
+        precio_promedio=row[4] or 0.0
     ) for row in result]

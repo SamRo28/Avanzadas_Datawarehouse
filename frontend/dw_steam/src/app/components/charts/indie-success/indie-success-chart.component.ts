@@ -73,9 +73,9 @@ export class IndieSuccessChartComponent implements OnInit {
           const parse = (val: string) => parseFloat(val.replace('%', ''));
 
           this.chartData = {
-            labels: ['Pixel Graphics', 'Roguelike', '2D', 'Strategy', 'Horror'],
+            labels: ['Gráficos Pixelados', 'Roguelike', '2D', 'Estrategia', 'Terror'],
             datasets: [{
-              label: 'Presence in Top Indies',
+              label: 'Presencia en Indies Top',
               data: [
                 parse(stats.tiene_pixel_graphics),
                 parse(stats.tiene_roguelike),

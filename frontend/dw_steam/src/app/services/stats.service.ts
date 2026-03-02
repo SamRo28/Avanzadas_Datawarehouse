@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
-    BlueOceanStat,
     BattleRoyaleLifecycle,
     IndieSuccessStat,
     PriceElasticityStat,
@@ -16,7 +15,8 @@ import {
     DevSupportStat,
     PublisherSuccessStat,
     SpecializationStat,
-    DecadeEvolutionStat
+    DecadeEvolutionStat,
+    ReleaseSeasonalityStat
 } from '../models/stats.models';
 
 @Injectable({
@@ -25,10 +25,6 @@ import {
 export class StatsService {
     private http = inject(HttpClient);
     private apiUrl = 'http://localhost:8000/statistics';
-
-    getBlueOcean(): Observable<BlueOceanStat[]> {
-        return this.http.get<BlueOceanStat[]>(`${this.apiUrl}/blue-ocean`);
-    }
 
     getBattleRoyaleLifecycle(): Observable<BattleRoyaleLifecycle[]> {
         return this.http.get<BattleRoyaleLifecycle[]>(`${this.apiUrl}/battle-royale-lifecycle`);
@@ -84,5 +80,9 @@ export class StatsService {
 
     getDecadeEvolution(): Observable<DecadeEvolutionStat[]> {
         return this.http.get<DecadeEvolutionStat[]>(`${this.apiUrl}/decade-evolution`);
+    }
+
+    getReleaseSeasonality(): Observable<ReleaseSeasonalityStat[]> {
+        return this.http.get<ReleaseSeasonalityStat[]>(`${this.apiUrl}/release-seasonality`);
     }
 }

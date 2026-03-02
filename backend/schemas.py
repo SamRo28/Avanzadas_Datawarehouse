@@ -1,13 +1,6 @@
 from pydantic import BaseModel
 from typing import List, Optional
 
-# Query 1: Blue Ocean
-class BlueOceanItem(BaseModel):
-    combinacion_generos: str
-    cantidad_competencia: int
-    rating_promedio: float
-    precio_promedio: float
-
 # Query 2: Battle Royale Lifecycle
 class BattleRoyaleLifecycleItem(BaseModel):
     anio: int
@@ -108,3 +101,11 @@ class DecadeEvolutionItem(BaseModel):
     Precio_Promedio: float
     Playtime_Promedio_Min: float
     Score_Aprobacion_Global: float
+
+# Query 16: Release Seasonality
+class ReleaseSeasonalityItem(BaseModel):
+    mes: int
+    nombre_mes: str
+    lanzamientos: int
+    rating_promedio: float
+    precio_promedio: float

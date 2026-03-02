@@ -10,13 +10,13 @@ import { StatsService } from '../../../services/stats.service';
     template: `
     <div class="grid grid-cols-2 gap-4 h-full">
       <div class="relative min-h-[250px]">
-        <h4 class="text-center text-gray-400 text-sm mb-2">Market Share (Titles)</h4>
+        <h4 class="text-center text-gray-400 text-sm mb-2">Cuota de Mercado (Títulos)</h4>
         @if (!isLoading()) {
           <canvas baseChart [data]="pieData" [options]="pieOptions" [type]="'doughnut'"></canvas>
         }
       </div>
       <div class="relative min-h-[250px]">
-        <h4 class="text-center text-gray-400 text-sm mb-2">Avg Playtime (min)</h4>
+        <h4 class="text-center text-gray-400 text-sm mb-2">Tiempo de Juego Prom. (min)</h4>
         @if (!isLoading()) {
           <canvas baseChart [data]="barData" [options]="barOptions" [type]="'bar'"></canvas>
         }

@@ -12,11 +12,11 @@ import { CommonModule } from '@angular/common';
       <table class="w-full text-sm text-left text-gray-400">
         <thead class="text-xs text-gray-300 uppercase bg-gray-800">
           <tr>
-            <th class="px-6 py-3">Rank</th>
-            <th class="px-6 py-3">Publisher</th>
-            <th class="px-6 py-3 text-center">Games</th>
-            <th class="px-6 py-3 text-right">Success Rate</th>
-            <th class="px-6 py-3 text-right">Avg Price</th>
+            <th class="px-6 py-3">Rango</th>
+            <th class="px-6 py-3">Editor</th>
+            <th class="px-6 py-3 text-center">Juegos</th>
+            <th class="px-6 py-3 text-right">Tasa de Éxito</th>
+            <th class="px-6 py-3 text-right">Precio Prom.</th>
           </tr>
         </thead>
         <tbody>

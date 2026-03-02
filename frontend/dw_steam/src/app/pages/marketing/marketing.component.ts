@@ -20,7 +20,7 @@ import { AccessibilityChartComponent } from '../../components/charts/accessibili
       <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <div class="bg-steam-card p-6 rounded-xl border border-gray-800 h-[400px] flex flex-col">
           <h3 class="text-lg font-semibold text-white mb-1">Visual Assets Impact</h3>
-          <p class="text-gray-400 text-sm mb-4">Analyzes how the quantity of screenshots and trailers correlates with user engagement and sales.</p>
+          <p class="text-gray-400 text-sm mb-4">Analyzes how the number of screenshots and trailers correlates with user engagement and sales.</p>
           <app-visual-assets-chart class="flex-1 min-h-0"></app-visual-assets-chart>
         </div>
 
@@ -38,7 +38,7 @@ import { AccessibilityChartComponent } from '../../components/charts/accessibili
 
         <div class="bg-steam-card p-6 rounded-xl border border-gray-800 h-[400px] flex flex-col">
           <h3 class="text-lg font-semibold text-white mb-1">Accessibility & Hardware</h3>
-          <p class="text-gray-400 text-sm mb-4">Breakdown of games supporting VR headsets and various controller types.</p>
+          <p class="text-gray-400 text-sm mb-4">Breakdown of games compatible with VR headsets and various controller types.</p>
           <app-accessibility-chart class="flex-1 min-h-0"></app-accessibility-chart>
         </div>
       </div>
